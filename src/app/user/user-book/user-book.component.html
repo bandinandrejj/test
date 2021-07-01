@@ -1,0 +1,42 @@
+<!--Добавление и поиск-->
+<div class="wrapper">
+
+  <a *ngIf="userFlag === 'librarian'" class="join" href="{{thisUrl}}#popupAdd">
+    <a class="joinsign">Добавить книгу</a>
+  </a>
+
+  <div class="search">
+    <form action="" class="sline">
+      <input [(ngModel)]="str" (input)="findBook(str)" name="findBook" type="text" placeholder="Поиск">
+    </form>
+  </div>
+</div>
+
+<!-- Таблица для библиотекаря -->
+<app-table *ngIf="userFlag === 'librarian'"
+           [headings]="headingsLib"
+           [objectKeys]="['bookName', 'bookAuthor', 'bookGenre', 'bookCount', 'bookInStock']"
+           [arrayObects]="books"
+           [popupComment]="true"
+           [popupEdit]="true"
+           [popupDelete]="true"
+           (object)="touchBookObj = $event"
+></app-table>
+
+<!-- Таблица для студента (читателя) -->
+<app-table *ngIf="userFlag === 'student'"
+           [headings]="headingsStud"
+           [objectKeys]="['bookName', 'bookAuthor', 'bookGenre', 'bookCount', 'bookInStock']"
+           [arrayObects]="books"
+           [popupComment]="true"
+           (object)="touchBookObj = $event"
+></app-table>
+
+<!--Попапы в отдельном компоненте-->
+<app-popup-book
+[books]="books"
+[touchBook]="touchBookObj"
+></app-popup-book>
+
+
+

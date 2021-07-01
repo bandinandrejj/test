@@ -1,0 +1,33 @@
+<div class="wrapper">
+
+  <a class="join" href="{{thisUrl}}#popupAdd">
+    <a class="joinsign">Добавить читателя</a>
+  </a>
+
+  <div class="search">
+    <form action="" class="sline">
+            <input [(ngModel)]="str" (input)="findUser(str)" name="findUser" type="text" placeholder="Поиск">
+    </form>
+  </div>
+
+</div>
+
+
+<!--Таблица-->
+<app-table
+  [headings]="headingsLib"
+  [objectKeys]="['userName', 'userLastName', 'userLogin', 'userPass']"
+  [arrayObects]="students"
+  [popupOpen]="true"
+  [popupEdit]="true"
+  [popupDelete]="true"
+  (object)="touchStudentObj = $event"
+>
+</app-table>
+
+
+
+<app-popup-stud
+  [touchStudent]="touchStudentObj"
+  [students]="viewStudents"
+></app-popup-stud>

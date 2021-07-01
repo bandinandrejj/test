@@ -1,0 +1,55 @@
+<!--Добавление и поиск-->
+
+
+
+
+<div class="wrapper">
+  <a *ngIf="userFlag === 'librarian'" class="join" (click)="addBorrowBook = true" href="{{thisUrl}}#popupAddBorrowBook">
+    <a class="joinsign">Арендовать книгу</a>
+  </a>
+
+  <div class="search">
+    <form action="" class="sline">
+      <input [(ngModel)]="strSearch" name="findBook" type="text" placeholder="Поиск"
+             (input)="findBorrowBook(strSearch)">
+    </form>
+  </div>
+</div>
+
+
+<app-table *ngIf="userFlag === 'librarian'"
+           [headings]="headingsLib"
+           [objectKeys]="['studLastName', 'studName', 'bookName', 'bookAuthor', 'borrowBookDate', 'returnBookDate']"
+           [arrayObects]="borrowBooks"
+           [popupEdit]="true"
+           [popupDelete]="true"
+           [buttonSwitch]="true"
+           (object)="touchBorrowBookObj = $event"
+           [extraObects]="books"
+           (objectSwitch)="touchSwitchObj = $event"
+>
+</app-table>
+
+<app-table *ngIf="userFlag === 'student'"
+           [headings]="headingsStud"
+           [objectKeys]="['bookName', 'bookAuthor', 'borrowBookDate', 'returnBookDate', 'returnBookCheck']"
+           [arrayObects]="borrowBooksStud"
+>
+</app-table>
+
+
+<ng-container *ngIf="userFlag === 'librarian'">
+
+  <app-popup-borrowbook
+    [touchSwitch]="touchSwitchObj"
+
+    [touchBorrowBook]="touchBorrowBookObj"
+
+    [checkClickAdd]="addBorrowBook"
+    (stateClickAdd)="addBorrowBook = $event"
+  >
+  </app-popup-borrowbook>
+
+
+</ng-container>
+
